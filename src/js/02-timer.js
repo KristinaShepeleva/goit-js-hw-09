@@ -14,27 +14,9 @@ const ref = {
   timer: document.querySelector('.timer'),
  };
 
-let intervalId;
+let intervalId = null;
 
 ref.submitBtn.disabled = true;
-
-function convertMs(ms) {
-  const second = 1000;
-  const minute = second * 60;
-  const hour = minute * 60;
-  const day = hour * 24;
-
-  const days = Math.floor(ms / day);
-  const hours = Math.floor((ms % day) / hour);
-  const minutes = Math.floor(((ms % day) % hour) / minute);
-  const seconds = Math.floor((((ms % day) % hour) % minute) / second);
-
-  return { days, hours, minutes, seconds };
-}
-
-function addLeadingZero(value) {
-  return value.toString().padStart(2, '0');
-};
 
 
 const options = {
@@ -45,10 +27,7 @@ const options = {
   onClose(selectedDates) {
     
     const selectDateMS = selectedDates[0].getTime();
-    console.log(selectDateMS);
-
-    const ms = selectDateMS - Date.now();
-    console.log(ms);
+    //const ms = selectDateMS - Date.now();
     
     if (selectDateMS < Date.now()) {
       ref.submitBtn.disabled = true;
@@ -67,8 +46,8 @@ const options = {
       intervalId = setInterval(() => calculateData()
   , 1000);  
     }
-    
-    
+     
+
     function calculateData() {
       const ms = selectDateMS - Date.now();
       if (ms > 0) {
@@ -92,6 +71,22 @@ function stop() {
    clearInterval(intervalId);
 }
    
-
 const fp = flatpickr(ref.myInput, options);
 
+function convertMs(ms) {
+  const second = 1000;
+  const minute = second * 60;
+  const hour = minute * 60;
+  const day = hour * 24;
+
+  const days = Math.floor(ms / day);
+  const hours = Math.floor((ms % day) / hour);
+  const minutes = Math.floor(((ms % day) % hour) / minute);
+  const seconds = Math.floor((((ms % day) % hour) % minute) / second);
+
+  return { days, hours, minutes, seconds };
+}
+
+function addLeadingZero(value) {
+  return value.toString().padStart(2, '0');
+};
