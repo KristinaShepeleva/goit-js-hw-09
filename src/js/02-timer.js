@@ -1,5 +1,7 @@
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
+
 
 //add refs
 const ref = {
@@ -49,8 +51,8 @@ const options = {
     console.log(ms);
     
     if (selectDateMS < Date.now()) {
-      window.alert("Please choose a date in the future")
       ref.submitBtn.disabled = true;
+      return Notify.failure('Please choose a date in the future');
     }
     
     if (selectDateMS >  Date.now()) {
