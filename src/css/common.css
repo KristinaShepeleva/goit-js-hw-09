@@ -16,3 +16,22 @@ img {
   display: block;
   max-width: 100%;
 }
+
+span {
+  display: block; 
+}
+
+
+.value {
+ font-size: 44px;
+}
+
+.timer {
+  display: flex;
+  gap: 16px;
+  margin-top: 24px
+}
+
+.field {
+  text-align: center;
+}
